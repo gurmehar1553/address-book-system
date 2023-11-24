@@ -5,27 +5,59 @@ public class AddressBookSystem {
         AddressBook book1 = new AddressBook();
         addNewContact(book1);
         editContact(book1);
+        deleteContact(book1);
+        printAllContacts(book1);
+    }
+    public static void printAllContacts(AddressBook book){
+        for(Contacts c:book.arr){
+            System.out.println(c.fname+" "+c.lname+" , "+c.phone+" , "+c.city+" , "+c.state+" , "+c.email+" , "+c.zip);
+        }
+    }
+    public static void  deleteContact(AddressBook book){
+        System.out.println("Enter the name whose contact to delete");
+        Scanner sc = new Scanner(System.in);
+        String fname = sc.next();
+        String lname = sc.next();
+        for (Contacts c: book.arr){
+            if(c.fname.equals(fname) && c.lname.equals(lname)){
+                book.arr.remove(c);
+            }
+        }
     }
     public static void editContact(AddressBook book1){
         System.out.println("Enter name whose contact you want to edit");
         Scanner sc = new Scanner(System.in);
         String fname = sc.next();
         String lname = sc.next();
+        System.out.println("Enter which option you want to edit");
+        System.out.println("1)City 2)State 3)Email 4)Zip 5)Phone");
+        int choice = sc.nextInt();
         for(Contacts c : book1.arr){
             if(c.fname.equals(fname) && c.lname.equals(lname)){
-                System.out.println("Enter edited city :");
-                c.city = sc.next();
-                System.out.println("Enter edited state :");
-                c.state = sc.next();
-                System.out.println("Enter edited email :");
-                c.email = sc.next();
-                System.out.println("Enter edited zip :");
-                c.zip = sc.nextInt();
-                System.out.println("Enter edited phone number :");
-                c.phone = sc.nextInt();
-            }
-            else {
-                System.out.println("Contact doesn't exist");
+                switch (choice){
+                    case 1:
+                        System.out.println("Enter edited city :");
+                        c.city = sc.next();
+                        break;
+                    case 2:
+                        System.out.println("Enter edited state :");
+                        c.state = sc.next();
+                        break;
+                    case 3:
+                        System.out.println("Enter edited email :");
+                        c.email = sc.next();
+                        break;
+                    case 4:
+                        System.out.println("Enter edited zip :");
+                        c.zip = sc.nextInt();
+                        break;
+                    case 5:
+                        System.out.println("Enter edited phone number :");
+                        c.phone = sc.nextInt();
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+                }
             }
         }
     }
@@ -67,7 +99,6 @@ class AddressBook{
         arr.add(c);
         System.out.println(c.fname+" "+c.lname+" added");
     }
-
 }
 class Contacts{
     String fname, lname, city, state, email;
