@@ -1,15 +1,22 @@
 import java.util.*;
 public class AddressBookSystem {
-    public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Welcome to Address Book Program");
+    public static AddressBook addAddressBooks(){
         AddressBook book1 = new AddressBook();
         System.out.println("How many contacts you want to add");
+        Scanner sc=new Scanner(System.in);
         int num = sc.nextInt();
         for(int i=0;i<num;i++){
             addNewContact(book1);
         }
+        return book1;
+    }
+    public static void main(String[] args) {
+
+        System.out.println("Welcome to Address Book Program");
+        AddressBook book1 = addAddressBooks();
+        AddressBook book2 = addAddressBooks();
         printAllContacts(book1);
+        printAllContacts(book2);
         editContact(book1);
         deleteContact(book1);
         printAllContacts(book1);
