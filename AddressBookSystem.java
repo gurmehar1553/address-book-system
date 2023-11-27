@@ -1,9 +1,15 @@
 import java.util.*;
 public class AddressBookSystem {
     public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
         System.out.println("Welcome to Address Book Program");
         AddressBook book1 = new AddressBook();
-        addNewContact(book1);
+        System.out.println("How many contacts you want to add");
+        int num = sc.nextInt();
+        for(int i=0;i<num;i++){
+            addNewContact(book1);
+        }
+        printAllContacts(book1);
         editContact(book1);
         deleteContact(book1);
         printAllContacts(book1);
@@ -99,6 +105,7 @@ class AddressBook{
         arr.add(c);
         System.out.println(c.fname+" "+c.lname+" added");
     }
+
 }
 class Contacts{
     String fname, lname, city, state, email;
