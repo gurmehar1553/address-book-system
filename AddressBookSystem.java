@@ -1,6 +1,10 @@
 import java.util.*;
 public class AddressBookSystem {
-    public static AddressBook addAddressBooks(){
+    HashMap<String, AddressBook> mp;
+    AddressBookSystem(){
+        mp = new HashMap<>();
+    }
+    public static AddressBook addAddressBooks(String name){
         AddressBook book1 = new AddressBook();
         System.out.println("How many contacts you want to add");
         Scanner sc=new Scanner(System.in);
@@ -13,8 +17,11 @@ public class AddressBookSystem {
     public static void main(String[] args) {
 
         System.out.println("Welcome to Address Book Program");
-        AddressBook book1 = addAddressBooks();
-        AddressBook book2 = addAddressBooks();
+        AddressBookSystem system = new AddressBookSystem();
+        AddressBook book1 = addAddressBooks("Book1");
+        system.mp.put("Book1",book1);
+        AddressBook book2 = addAddressBooks("Book2");
+        system.mp.put("Book2",book2);
         printAllContacts(book1);
         printAllContacts(book2);
         editContact(book1);
