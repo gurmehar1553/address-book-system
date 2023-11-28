@@ -4,7 +4,7 @@ public class AddressBookSystem {
     AddressBookSystem(){
         mp = new HashMap<>();
     }
-    public static AddressBook addAddressBooks(String name){
+    public static AddressBook addAddressBooks(){
         AddressBook book1 = new AddressBook();
         System.out.println("How many contacts you want to add");
         Scanner sc=new Scanner(System.in);
@@ -18,9 +18,9 @@ public class AddressBookSystem {
 
         System.out.println("Welcome to Address Book Program");
         AddressBookSystem system = new AddressBookSystem();
-        AddressBook book1 = addAddressBooks("Book1");
+        AddressBook book1 = addAddressBooks();
         system.mp.put("Book1",book1);
-        AddressBook book2 = addAddressBooks("Book2");
+        AddressBook book2 = addAddressBooks();
         system.mp.put("Book2",book2);
         printAllContacts(book1);
         printAllContacts(book2);
@@ -119,7 +119,6 @@ class AddressBook{
         arr.add(c);
         System.out.println(c.fname+" "+c.lname+" added");
     }
-
 }
 class Contacts{
     String fname, lname, city, state, email;
