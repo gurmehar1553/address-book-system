@@ -17,11 +17,11 @@ public class AddressBookSystem {
     public static void main(String[] args) {
 
         System.out.println("Welcome to Address Book Program");
-        AddressBookSystem system = new AddressBookSystem();
+        AddressBookSystem bookSystem = new AddressBookSystem();
         AddressBook book1 = addAddressBooks();
-        system.mp.put("Book1",book1);
+        bookSystem.mp.put("Book1",book1);
         AddressBook book2 = addAddressBooks();
-        system.mp.put("Book2",book2);
+        bookSystem.mp.put("Book2",book2);
         printAllContacts(book1);
         printAllContacts(book2);
         editContact(book1);
@@ -106,6 +106,12 @@ public class AddressBookSystem {
         int phone = sc.nextInt();
 
         Contacts contact1 = new Contacts(fName,lName,city,state,email,zip,phone);
+        for (Contacts c:book1.arr){
+            if (c.fname.equals(fName) && c.lname.equals(lName)){
+                System.out.println("This contact already exist");
+                return;
+            }
+        }
         book1.addContact(contact1);
     }
 }
