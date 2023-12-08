@@ -27,10 +27,19 @@ public class AddressBookSystem {
         editContact(book1);
         deleteContact(book1);
         printAllContacts(book1);
+        searchPerson(book1,"rjp");
     }
     public static void printAllContacts(AddressBook book){
         for(Contacts c:book.arr){
             System.out.println(c.fname+" "+c.lname+" , "+c.phone+" , "+c.city+" , "+c.state+" , "+c.email+" , "+c.zip);
+        }
+    }
+    public static void searchPerson(AddressBook book,String city){
+        System.out.println("Persons who live in this city:");
+        for (Contacts c:book.arr){
+            if (c.city.equals(city)){
+                System.out.println(c.fname+" "+c.lname);
+            }
         }
     }
     public static void  deleteContact(AddressBook book){
