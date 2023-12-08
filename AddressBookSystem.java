@@ -31,7 +31,19 @@ public class AddressBookSystem {
         HashMap<String,ArrayList<String>> stateToPerson = new HashMap<>();
         searchPerson(book1,"rjp",cityToPerson,stateToPerson,"pb");
         viewPersonForCityState(book1,"rjp",cityToPerson,stateToPerson,"pb");
+        countByCity(book1,"rjp",cityToPerson);
+        countByState(book1,"pb",stateToPerson);
     }
+
+    public static void countByCity(AddressBook book1, String city, HashMap<String, ArrayList<String>> cityToPerson) {
+        ArrayList<String> listPersonCity = cityToPerson.get(city);
+        System.out.println("Number of persons in "+city+" : "+listPersonCity.size());
+    }
+    public static void countByState(AddressBook book1, String state, HashMap<String, ArrayList<String>> stateToPerson) {
+        ArrayList<String> listPersonState = stateToPerson.get(state);
+        System.out.println("Number of persons in "+state+" : "+listPersonState.size());
+    }
+
 
     public static void viewPersonForCityState(AddressBook book1, String city, HashMap<String,
             ArrayList<String>> cityToPerson, HashMap<String, ArrayList<String>> stateToPerson, String state) {
