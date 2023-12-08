@@ -27,20 +27,49 @@ public class AddressBookSystem {
         editContact(book1);
         deleteContact(book1);
         printAllContacts(book1);
-        searchPerson(book1,"rjp");
+        HashMap<String,ArrayList<String>> cityToPerson = new HashMap<>();
+        HashMap<String,ArrayList<String>> stateToPerson = new HashMap<>();
+        searchPerson(book1,"rjp",cityToPerson,stateToPerson,"pb");
+        viewPersonForCityState(book1,"rjp",cityToPerson,stateToPerson,"pb");
     }
+
+    public static void viewPersonForCityState(AddressBook book1, String city, HashMap<String,
+            ArrayList<String>> cityToPerson, HashMap<String, ArrayList<String>> stateToPerson, String state) {
+
+        ArrayList<String> listPersonCity = cityToPerson.get(city);
+        System.out.print(city+" : ");
+        for (String s:listPersonCity){
+            System.out.print(s+",");
+        }
+        System.out.println();
+        ArrayList<String> listPersonState = stateToPerson.get(state);
+        System.out.print(state+" : ");
+        for (String s:listPersonState){
+            System.out.print(s+" , ");
+        }
+        System.out.println();
+    }
+
     public static void printAllContacts(AddressBook book){
         for(Contacts c:book.arr){
             System.out.println(c.fname+" "+c.lname+" , "+c.phone+" , "+c.city+" , "+c.state+" , "+c.email+" , "+c.zip);
         }
     }
-    public static void searchPerson(AddressBook book,String city){
+    public static void searchPerson(AddressBook book,String city,HashMap<String,ArrayList<String>> cityToPerson,
+                                    HashMap<String,ArrayList<String>> stateToPerson,String state){
         System.out.println("Persons who live in this city:");
+        ArrayList<String> listPersonCity=new ArrayList<>();
+        ArrayList<String> listPersonState=new ArrayList<>();
         for (Contacts c:book.arr){
             if (c.city.equals(city)){
-                System.out.println(c.fname+" "+c.lname);
+                listPersonCity.add(c.fname);
+            }
+            if (c.state.equals(state)){
+                listPersonState.add(c.fname);
             }
         }
+        cityToPerson.put(city,listPersonCity);
+        stateToPerson.put(state,listPersonState);
     }
     public static void  deleteContact(AddressBook book){
         System.out.println("Enter the name whose contact to delete");
