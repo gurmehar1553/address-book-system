@@ -4,10 +4,15 @@ public class AddressBookSystem {
     AddressBookSystem(){
         mp = new HashMap<>();
     }
+    /*
+    Method to
+    add multiple address books
+    to one address book system
+     */
     public static AddressBook addAddressBooks(){
         AddressBook book1 = new AddressBook();
-        System.out.println("How many contacts you want to add");
         Scanner sc=new Scanner(System.in);
+        System.out.println("How many contacts you want to add");
         int num = sc.nextInt();
         for(int i=0;i<num;i++){
             addNewContact(book1);
@@ -94,6 +99,11 @@ public class AddressBookSystem {
             }
         }
     }
+    /*
+    Method to edit contacts
+    by taking user's choice to edit
+    1- City, 2 - State, 3 - Email, 4 - Zip, 5 - Phone
+    */
     public static void editContact(AddressBook book1){
         System.out.println("Enter name whose contact you want to edit");
         Scanner sc = new Scanner(System.in);
@@ -131,7 +141,11 @@ public class AddressBookSystem {
             }
         }
     }
-
+    /*
+    Method to Add new Contacts
+    and checks if already it exists
+    gives the desired message
+    */
     public static void addNewContact(AddressBook book1) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter First Name");
@@ -165,7 +179,10 @@ public class AddressBookSystem {
         book1.addContact(contact1);
     }
 }
-
+/*
+Class of Address book which
+stores all the contacts
+*/
 class AddressBook{
     ArrayList<Contacts> arr;
     AddressBook(){
