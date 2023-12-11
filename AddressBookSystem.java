@@ -1,20 +1,47 @@
 import java.util.*;
+import java.util.stream.Collectors;
+
 public class AddressBookSystem {
-    HashMap<String, AddressBook> mp;
+    static HashMap<String, AddressBook> mp;
+    static HashMap<String,ArrayList<String>> cityOrStateToPerson;
     AddressBookSystem(){
         mp = new HashMap<>();
+        cityOrStateToPerson = new HashMap<>();
     }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
         AddressBookSystem system = new AddressBookSystem();
         addAddressBooks(system);
-        HashMap<String,ArrayList<String>> cityToPerson = new HashMap<>();
-        HashMap<String,ArrayList<String>> stateToPerson = new HashMap<>();
-        searchPerson(book1,"rjp",cityToPerson,stateToPerson,"pb");
-        viewPersonForCityState(book1,"rjp",cityToPerson,stateToPerson,"pb");
-        countByCity(book1,"rjp",cityToPerson);
-        countByState(book1,"pb",stateToPerson);
+        System.out.println("Number of persons in a particular city or state : "+searchPersonInCityOrState());
+        viewPersonForCityState();
+    }
+
+    public static int searchPersonInCityOrState() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter city name in which you want to search people:");
+        String city = sc.next();
+        System.out.println("Enter state name in which you want to search people:");
+        String state = sc.next();
+        int countOfPersons = 0;
+        ArrayList<String> personsInCityOrState = new ArrayList<>();
+        ArrayList<List<Contacts>> listPersonCityState=new ArrayList<>();
+        List<Contacts> listPersons;
+        for (Map.Entry<String,AddressBook> m: mp.entrySet()){
+            AddressBook book = m.getValue();
+            listPersons = (book.arr.stream()
+                    .filter(contact -> (contact.city.equals(city) || contact.state.equals(state)))
+                    .collect(Collectors.toList()));
+            listPersonCityState.add(listPersons);
+        }
+        for (List<Contacts> l:listPersonCityState){
+            for (Contacts c:l){
+                personsInCityOrState.add(c.fname);
+                countOfPersons++;
+            }
+        }
+        cityOrStateToPerson.put(city+" or "+state,personsInCityOrState);
+        return countOfPersons;
     }
     /*
     Method to
@@ -43,31 +70,11 @@ public class AddressBookSystem {
         }
         return book1;
     }
-    public static void countByCity(AddressBook book1, String city, HashMap<String, ArrayList<String>> cityToPerson) {
-        ArrayList<String> listPersonCity = cityToPerson.get(city);
-        System.out.println("Number of persons in "+city+" : "+listPersonCity.size());
-    }
-    public static void countByState(AddressBook book1, String state, HashMap<String, ArrayList<String>> stateToPerson) {
-        ArrayList<String> listPersonState = stateToPerson.get(state);
-        System.out.println("Number of persons in "+state+" : "+listPersonState.size());
-    }
 
-
-    public static void viewPersonForCityState(AddressBook book1, String city, HashMap<String,
-            ArrayList<String>> cityToPerson, HashMap<String, ArrayList<String>> stateToPerson, String state) {
-
-        ArrayList<String> listPersonCity = cityToPerson.get(city);
-        System.out.print(city+" : ");
-        for (String s:listPersonCity){
-            System.out.print(s+",");
+    public static void viewPersonForCityState() {
+        for (Map.Entry<String,ArrayList<String>> m: cityOrStateToPerson.entrySet()){
+            System.out.println(m.getKey()+" -> "+m.getValue());
         }
-        System.out.println();
-        ArrayList<String> listPersonState = stateToPerson.get(state);
-        System.out.print(state+" : ");
-        for (String s:listPersonState){
-            System.out.print(s+" , ");
-        }
-        System.out.println();
     }
 
     public static void printAllContacts(AddressBook book){
@@ -75,22 +82,7 @@ public class AddressBookSystem {
             System.out.println(c.fname+" "+c.lname+" , "+c.phone+" , "+c.city+" , "+c.state+" , "+c.email+" , "+c.zip);
         }
     }
-    public static void searchPerson(AddressBook book,String city,HashMap<String,ArrayList<String>> cityToPerson,
-                                    HashMap<String,ArrayList<String>> stateToPerson,String state){
-        System.out.println("Persons who live in this city:");
-        ArrayList<String> listPersonCity=new ArrayList<>();
-        ArrayList<String> listPersonState=new ArrayList<>();
-        for (Contacts c:book.arr){
-            if (c.city.equals(city)){
-                listPersonCity.add(c.fname);
-            }
-            if (c.state.equals(state)){
-                listPersonState.add(c.fname);
-            }
-        }
-        cityToPerson.put(city,listPersonCity);
-        stateToPerson.put(state,listPersonState);
-    }
+
     public static void  deleteContact(AddressBook book){
         System.out.println("Enter the name whose contact to delete");
         Scanner sc = new Scanner(System.in);
