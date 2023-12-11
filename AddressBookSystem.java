@@ -46,7 +46,7 @@ public class AddressBookSystem {
     /*
     Method to
     add multiple address books
-    to one address book system
+    to one address book system in sorted order
      */
     public static void addAddressBooks(AddressBookSystem system) {
         System.out.println("How many address books you want to add");
@@ -56,7 +56,9 @@ public class AddressBookSystem {
             System.out.println("Enter name of address book "+(i+1));
             String name = sc.next();
             AddressBook book = helperAddAddressBooks();
-            system.mp.put(name,book);
+            Collections.sort(book.arr,Comparator.comparing(contacts -> contacts.fname));
+            mp.put(name,book);
+            printAllContacts(book);
         }
     }
 
