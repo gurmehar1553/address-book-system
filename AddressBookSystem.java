@@ -4,34 +4,11 @@ public class AddressBookSystem {
     AddressBookSystem(){
         mp = new HashMap<>();
     }
-    /*
-    Method to
-    add multiple address books
-    to one address book system
-     */
-    public static AddressBook addAddressBooks(){
-        AddressBook book1 = new AddressBook();
-        Scanner sc=new Scanner(System.in);
-        System.out.println("How many contacts you want to add");
-        int num = sc.nextInt();
-        for(int i=0;i<num;i++){
-            addNewContact(book1);
-        }
-        return book1;
-    }
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
-        AddressBookSystem bookSystem = new AddressBookSystem();
-        AddressBook book1 = addAddressBooks();
-        bookSystem.mp.put("Book1",book1);
-        AddressBook book2 = addAddressBooks();
-        bookSystem.mp.put("Book2",book2);
-        printAllContacts(book1);
-        printAllContacts(book2);
-        editContact(book1);
-        deleteContact(book1);
-        printAllContacts(book1);
+        AddressBookSystem system = new AddressBookSystem();
+        addAddressBooks(system);
         HashMap<String,ArrayList<String>> cityToPerson = new HashMap<>();
         HashMap<String,ArrayList<String>> stateToPerson = new HashMap<>();
         searchPerson(book1,"rjp",cityToPerson,stateToPerson,"pb");
@@ -39,7 +16,33 @@ public class AddressBookSystem {
         countByCity(book1,"rjp",cityToPerson);
         countByState(book1,"pb",stateToPerson);
     }
+    /*
+    Method to
+    add multiple address books
+    to one address book system
+     */
+    public static void addAddressBooks(AddressBookSystem system) {
+        System.out.println("How many address books you want to add");
+        Scanner sc=new Scanner(System.in);
+        int num = sc.nextInt();
+        for(int i=0;i<num;i++){
+            System.out.println("Enter name of address book "+(i+1));
+            String name = sc.next();
+            AddressBook book = helperAddAddressBooks();
+            system.mp.put(name,book);
+        }
+    }
 
+    public static AddressBook helperAddAddressBooks(){
+        AddressBook book1 = new AddressBook();
+        System.out.println("How many contacts you want to add");
+        Scanner sc=new Scanner(System.in);
+        int num = sc.nextInt();
+        for(int i=0;i<num;i++){
+            addNewContact(book1);
+        }
+        return book1;
+    }
     public static void countByCity(AddressBook book1, String city, HashMap<String, ArrayList<String>> cityToPerson) {
         ArrayList<String> listPersonCity = cityToPerson.get(city);
         System.out.println("Number of persons in "+city+" : "+listPersonCity.size());
@@ -169,13 +172,13 @@ public class AddressBookSystem {
         System.out.println("Enter Phone Number");
         int phone = sc.nextInt();
 
-        Contacts contact1 = new Contacts(fName,lName,city,state,email,zip,phone);
         for (Contacts c:book1.arr){
             if (c.fname.equals(fName) && c.lname.equals(lName)){
                 System.out.println("This contact already exist");
                 return;
             }
         }
+        Contacts contact1 = new Contacts(fName,lName,city,state,email,zip,phone);
         book1.addContact(contact1);
     }
 }
