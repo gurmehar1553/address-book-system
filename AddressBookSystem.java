@@ -61,7 +61,15 @@ public class AddressBookSystem {
             printAllContacts(book);
         }
     }
-
+    public void sortByCity(AddressBook book){
+        Collections.sort(book.arr,Comparator.comparing(contacts -> contacts.city));
+    }
+    public void sortByState(AddressBook book){
+        Collections.sort(book.arr,Comparator.comparing(contacts -> contacts.state));
+    }
+    public void sortByZip(AddressBook book){
+        Collections.sort(book.arr,Comparator.comparing(contacts -> contacts.zip));
+    }
     public static AddressBook helperAddAddressBooks(){
         AddressBook book1 = new AddressBook();
         System.out.println("How many contacts you want to add");
