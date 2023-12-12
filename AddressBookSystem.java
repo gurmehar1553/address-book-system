@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,44 @@ public class AddressBookSystem {
         addAddressBooks(system);
         System.out.println("Number of persons in a particular city or state : "+searchPersonInCityOrState());
         viewPersonForCityState();
+        readWriteFromFile();
+    }
+
+    /**
+     * Used BufferReader & BufferedWriter
+     * for taking input and writing output
+     * in files.
+     */
+    public static void readWriteFromFile()  {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("FileInput.txt"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("FileOutput.txt"));
+            String txt = "";
+            while ((txt=bufferedReader.readLine()) != null){
+                String[] arr = txt.split(",");
+                Contacts c = new Contacts(arr[1],arr[2],arr[3],arr[4],arr[5],Integer.parseInt(arr[6]),Integer.parseInt(arr[7]));
+                AddressBook newBook = new AddressBook();
+                newBook.arr.add(c);
+                mp.put(arr[0],newBook);
+            }
+            for(Map.Entry<String,AddressBook> m:mp.entrySet()){
+                AddressBook b = m.getValue();
+                bufferedWriter.write(m.getKey()+" : \n");
+                for (Contacts contact: b.arr){
+                    bufferedWriter.write("Name : "+contact.fname+" "+contact.lname+"\n");
+                    bufferedWriter.write("City : "+contact.city+"\n");
+                    bufferedWriter.write("State : "+contact.state+"\n");
+                    bufferedWriter.write("Zip : "+contact.zip+"\n");
+                    bufferedWriter.write("Phone : "+contact.phone+"\n");
+                    bufferedWriter.write("Email : "+contact.email+"\n\n");
+                }
+            }
+            bufferedWriter.close();
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static int searchPersonInCityOrState() {
