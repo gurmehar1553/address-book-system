@@ -1,0 +1,16 @@
+NewBook : 
+Name : Gurmehar Kaur
+City : Rjp
+State : Pb
+Zip : 1342
+Phone : 123456789
+Email : gurmehar@123
+
+Book2 : 
+Name : Kavya Jindal
+City : Patiala
+State : Pb
+Zip : 1234
+Phone : 987654321
+Email : kavya@123
+
